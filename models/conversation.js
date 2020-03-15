@@ -1,42 +1,26 @@
+var mongoose = require('mongoose');
 
-var Conversation = require('../models/conversation');
+var Schema = mongoose.Schema;
 
-var async = require('async');
+var ConversationSchema = new Schema(
+  {
+    title: {type: String, required: true},
+    language: {type: String, required: true},
+    difficulty: {type: String, required: true},
+    character1: {type: String, required: true},
+    character2: [{type: String, required: true}],
+    line1: {type: String, required: true},
+    line2: {type: String, required: true},
+    line3: {type: String, required: true},
+    line4: {type: String, required: true},
+  }
+);
 
-// Display Peaksay conversation create form on GET.
-exports.convo_create_get = function(req, res, next) { 
-    res.sendFile( __rootdir + "/public/peaksay-form.html");
-};
-
-// Handle Peaksay conversation create on POST.
-exports.convo_create_post = function(req, res) {
-    console.log("conversation post function has been called");
-
-    // Create a simple Conversation object/document.
-    var conversation = new Conversation(
-        {   title: req.body.title,
-            language: req.body.language,
-            difficulty: req.body.difficulty,
-            character1: req.body.character1,
-            character2: req.body.character2,
-            line1: req.body.line1,
-            line2:req.body.line2,
-            line3:req.body.line3,
-            line4: req.body.line4
-        });
-
-    console.log();
-    
-
-    conversation.save(function (err) {
-        if (err) { return next(err); }
-        console.log("New conversation created: " + conversation.title);
-    });
+//Export Conversation model
+module.exports = mongoose.model('Conversation', ConversationSchema);
 
 
-}
 
-// HTTP is stateless, so you can’t redirect to another page and pass messages along without the help of a session cookie to persist that message between HTTP requests. A “flash message” is the name given to this kind of one-time-only message we want to persist across a redirect and then disappear.
 
 
 /*
@@ -88,7 +72,3 @@ const conversation8 = {
   audio: [],
 };
 */
-
-
-
-

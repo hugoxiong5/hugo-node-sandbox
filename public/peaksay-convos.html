@@ -2,8 +2,37 @@
 <html lang="en-US">
   <head>
     <meta charset="utf-8">
-    <title>Peaksay: List of All Conversations</title>
+    <title>Peaksay: List of Conversations</title>
   </head>
+
+
+  // Display list of all books.
+exports.book_list = function(req, res, next) {
+
+    Book.find({}, 'title author')
+      .populate('author')
+      .exec(function (err, list_books) {
+        if (err) { return next(err); }
+        //Successful, so render
+        res.render('book_list', { title: 'Book List', book_list: list_books });
+      });
+      
+  };
+
+
+  <body>
+
+    ul
+    - book_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+    each book in book_list
+      li 
+        a(href=book.url) #{book.title} 
+        |  (#{book.author.name})
+  
+    else
+      li There are no books.
+  
+
 
   <body>
     <p>Peaksay: Create New Conversation</p>
