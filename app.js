@@ -1,3 +1,5 @@
+global.__rootdir = __dirname;
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -8,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var catalogRouter = require('./routes/catalog');  //Import routes for "catalog" area of site
 var wiki = require('./routes/wiki');
+var peaksayRouter = require('./routes/peaksay-routes');
 var compression = require('compression');
 var helmet = require('helmet');
 
@@ -33,12 +36,13 @@ app.use(cookieParser());
 
 app.use(compression()); //Compress all routes
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); // all Peaksay static HTML/CSS/JS files loaded from this directory
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/catalog', catalogRouter);
 app.use('/wiki', wiki);
+app.use('/peaksay', peaksayRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
