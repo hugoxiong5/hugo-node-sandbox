@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <!-- Title and meta info-->
+    <meta charset = "utf-8">
+    <title>Peaksay</title>
+    <meta name="description" content="The conversation game for learning languages">
+    <meta name="author" content="Hugo Xiong">
+    
+    <!-- favicon file-->
+    <link rel='icon' href='favicon.ico' type='image/x-icon'/ >
+    
+    <!-- link to import the Varela Round font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
+
+    <!-- link to main CSS stylesheet -->
+    <link rel="stylesheet" type="text/css" href="/Users/hugo/Dropbox/Programming/Node-JS-sandbox/tutorial-projects/local-library/public/stylesheets/styles.css">
+
+  </head>
+  <body>
+
+    <!-- elements for "start Screen", with instructions for the game and a start button-->
+    <div id="startScreen">
+      <div id="startHeader" class="flex-default">
+          <h1 class="title">peaksay</h1>
+          <!-- <h1 class="peaksay-logo-link">
+            <a ref="https://peaksay.com">
+              <img width="170.549" height="59.990" src="https://fluentkey.com/blog/wp-content/uploads/cropped-logo-variant-nosloga-square-300x106.png">
+            </a> -->
+          </h1>
+          <h3 class="tagline">the conversation game!</h3>
+          <!-- <button class="btn hover" id="text-to-speech" onClick="textToSpeech()">Click for TEXT TO SPEECH</button> -->
+      </div>
+
+
+      <!-- elements for start Button-->
+      <div id="start-menu-button-container">
+        <div class="popup">
+          <button id="startButton" class="btn hover" onClick="options()">Start Game</button>
+          <span class="popuptext" id="select-popup">Please select a conversation!</span>
+        </div>
+        <button id="instructionsButton" class="btn hover" onClick="instructions()">How to Play</button>
+      </div>
+
+      <!-- elements for conversation button and dropdown-->
+      <div id="conversationWindow">
+        <div id="convo-dropdown" class="dropdown">
+          <button class="btn dropbtn">Choose Conversation</button>
+          <div id="convo-dropdown-content" class="dropdown-content"></div>
+        </div>
+        <div id="convoGrid"></div>
+        </div>
+    </div>
+
+    <!-- Instructions Modal Window -->
+    <!-- modal means a pop-up window that appears during certain conditions (i.e. when you click on a button), not usually visible -->
+    <div id="instructionsModal" class="modal">
+      <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>How to Play:</h2>
+          <br>
+          <h4>Take turns acting out a conversation with another player! Who's the fastest of them all? The fun new way to practice a new language :)</h4>
+          <br>
+          <ol style="text-align:left">
+            <li>Choose your conversation.</li>
+            <li>Press start!</li>
+            <li>Answer with the correct next line.</li>
+            <li>You're in a tug of war for "conversation energy." Gain energy by answering quickly and accurately. Lose energy for wrong or slow answers.</li>
+            <li>Once the conversation is finished, it starts over again. Each new round is faster than the last! </li>
+            <li>Pay attention to your energy bar: Whoever gets all the energy wins!</li>
+          </ol>
+      </div>
+    </div>
+
+    <!-- elements for "play/option Screen", with different settings before the game starts -->
+    <div id="optionsScreen">
+
+      <button class="back-btn" onClick="init()">&#8249;</button>
+      <div id="optionsHeader"class="flex-default">
+          <h1 class="title">peaksay</h1>
+          </h1>
+          <h3 class="tagline">the conversation game!</h3>
+      </div>
+      <h2 id="options-convo-title"></h2>
+
+      <!-- elements for Learn Mode and Game Mode sections-->
+      <div id="learn-mode-button-container" class="flex-default">
+        <button id="learn-mode-btn" class="btn" onClick="newLearnMode()">Learn Mode</button>
+      </div>
+
+      <div id="learn-mode-explainer" class="options-explainer">
+        <ul>
+          <li>Practice the conversation at your own pace, without the pressure of timers or scores.</li>
+          <li>Rewind, fast forward, or restart the conversation whenever you want.</li>
+          <li>Audio and translation support to help you fully master each line.</li>
+        </ul>
+      </div>
+
+      <div id="game-mode-button-container" class="flex-default">
+        <button id="game-mode-btn" class="btn" onClick="newGame()">Game Mode</button>
+      </div>
+
+      <div id="difficulty-select-container">
+        <div id="difficulty-dropdown" class="dropdown">
+          <button id="difficulty-btn" class="btn dropbtn">Choose Difficulty</button>
+          <div id="difficulty-dropdown-content" class="dropdown-content">
+            <p id="easy-difficulty" onClick="chooseDifficulty(this)">Easy</p>
+            <p id="normal-difficulty" onClick="chooseDifficulty(this)">Normal</p>
+            <p id="hard-difficulty" onClick="chooseDifficulty(this)">Hard</p>
+          </div>
+        </div>  
+        <div id="difficulty-selected">
+          <h3 id="difficulty-selected-text">NORMAL</h3>
+        </div>        
+      </div>
+
+      <div id="game-mode-explainer" class="options-explainer">
+        <ul>
+          <li>Are you ready to play? Learn and have fun at the same time!</li>
+          <li>Choose the right difficulty setting to challenge yourself.</li>
+          <li style="text-decoration:line-through;">Save your high score on the world leaderboard. Bragging rights included.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Round Start Modal Window -->
+    <div id="roundModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <img id="rmImage" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png">
+          <p id="rmRole">You are BOB!</p>
+          <p id="rmTurn">You speak FIRST!</p>
+        </div>
+    </div>
+
+    <!-- Learn Mode Start Modal Window -->
+    <div id="learnModeModal" class="modal">
+      <div class="modal-content">
+        <h3 id="lm-modal-header">Choose Your Role:</h3>
+        <div id="lm-choose-1" class="lm-modal-roles" onCLick="chooseRole(this)">
+          <img id="lmImage1"" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png">
+          <p id="lmRole1">Bob</p>
+          <p id="lmTurn1">speaks first</p>
+        </div>
+        <div id="lm-choose-2" class="lm-modal-roles" onCLick="chooseRole(this)">
+          <img id="lmImage2" " src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png">
+          <p id="lmRole2">Alice</p>
+          <p id="lmTurn2">speaks second</p>
+        </div>
+      </div>
+    </div>
+
+      <!-- 
+      Game: Elements to set up the actual Game layout and interface
+        There 4 highest/main level elements, going from top to bottom: 
+        1) menu (Logo, buttons for settings, pause, game restart, etc)
+        2) scoreboard (player scores and pictures, energy bar, round info)
+        3) dialogueWindow (the window where each line of dialogue appears)
+        4) controls (clickable answer choices)
+      -->
+
+      <div id="gameContainer">
+
+        <div id="menuWindow">
+          <div id="roundCounter"></div>
+          <div id="dialogueTitle"></div>
+          <div id="menuWindow-buttons">
+            <button id="pauseButton" class="btn menu-btn hover" onClick="pause()">Pause</button>
+            <button id="newGameButton" class="btn menu-btn hover" onClick="restart()">New Game</button>
+          </div>
+        </div>
+
+        <div id="scoreboardWindow">
+          <div id="player-window-1" class="playerWindow">
+              <div id="role1" class="role">Player 1:</div>
+              <img id="playerImage1" class="playerImage" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png">
+              <div id="score1Counter" class="scoreCounter">Score:</div>
+          </div>
+          <div id="energyContainer">
+            <div id="energyWindow">
+              <div id="player1Bar"></div>
+              <div id="player2Bar"></div>
+            </div>
+            <div id="energyCounter1" class="energyCounter">Energy:</div>
+            <div id="energyCounter2" class="energyCounter">Energy:</div>
+          </div>
+          <div id="player-window-2" class="playerWindow">
+            <div id="role2" class="role">Player 2:</div>
+              <img id="playerImage2" class="playerImage" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png">
+              <div id="score2Counter" class="scoreCounter">Score:</div>
+          </div>
+        </div>
+
+        <div id="learnControlsWindow">
+          <div id="learnPrevious" class="btn hover learn-menu" onClick="previousLine()">Previous Player 1 Line</div>
+          <div id="learnNext" class="btn hover learn-menu" onClick="nextLine()">Next Player 1 Line</div>
+          <div id="learnRestart" class="btn hover learn-menu" onClick="learnModeStart()">Restart Conversation</div>
+        </div>
+
+        <div id="dialogueWindow">
+          <div class="dialogueBox dBox1" id="currentLine1"></div>
+          <div class="dialogueBox dBox2" id="currentLine2"></div>
+        </div>
+
+        <div id="controlsWindow">
+          <div id="timerBar"></div>
+          <div id="announcementContainer">
+            <div id="announcementBox"></div>
+          </div>
+          <div id="answerButtonContainer">
+            <button class="btn answerBtn hover" id="choice1" onClick="answered(this)">Answer 1</button>
+            <button class="btn answerBtn hover" id="choice2" onClick="answered(this)">Answer 2</button>
+            <button class="btn answerBtn hover" id="choice3" onClick="answered(this)">Answer 3</button>
+            <button class="btn answerBtn hover" id="choice4" onClick="answered(this)">Answer 4</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Game Over Modal Window -->
+      <div id="gameOverModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="endMessage">Congratulations, you win!</p>
+            <p id="endBonus">BONUS POINTS:</p>
+            <p id="endScore">Your High Score: points!</p>
+            <div id="endStats">STATISTICS:</div>
+              <p id="lineStats"></p>
+              <p id="timeStats"></p>
+          </div>
+      </div>
+    
+      <!-- link to outside JS script -->
+      <script src="/Users/hugo/Dropbox/Programming/Node-JS-sandbox/tutorial-projects/local-library/public/javascripts/scripts.js"></script>
+  </body>
+</html>

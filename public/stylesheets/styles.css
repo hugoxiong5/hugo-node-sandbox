@@ -1,0 +1,947 @@
+/* reset defaults, border-box helps control size of elements more easily */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  letter-spacing: -.5px;
+  }
+
+/* root element of a tree representing the document, here sets the default font type and size on which everything else is based */
+:root {
+  font-family: 'Varela Round', sans-serif;
+  font-size: 1.7vw;
+}
+
+/* default flexbox settings */
+.flex-default {
+  display: flex;
+  flex-grow: 1;
+  flex-basis: 100%;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+/* default paragraph padding settings */
+p {
+  padding: 16px;
+}
+
+/* default list settings */
+ol {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 40px;
+  font-size: .8rem;
+}
+
+h1 {
+  padding-top: 30px;
+}
+
+h3 {
+  padding: 10px;
+}
+
+li {
+  margin: 1em;
+}
+
+/* general reset/transition animations */
+.smooth-transition {
+  transition-duration: 1.5s !important; 
+  transition-timing-function: ease-in !important;
+}
+
+/* default button appearance settings */
+.btn {
+  background-color: #FF9800;
+  color: white;
+  padding: 16px;
+  margin: 10px;
+  font-size: .8rem;
+  font-family: 'Varela Round', sans-serif;
+}
+
+/* default button hover settings */
+.hover:hover {
+  cursor: pointer;
+}
+
+.btn.hover:hover {
+  background-color: lightpink;
+}
+
+/* sets up the background of all Modal Windows, allows clicking outside the window to close it */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 4; /* Sit on top */
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box: default apperance settings */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 5px solid pink;
+  max-width: 75%;
+  max-height: 75%; /* Could be more or less, depending on screen size */
+  text-align: center;
+}
+
+/* The Close Button: default appearance settings */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* default close button hover settings */
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#roundModal .modal-content {
+  font-size: 1.5rem;
+}
+
+#rmImage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 200px;
+  object-fit: contain;
+}
+
+#learnModeModal .modal-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 3fr;
+  justify-items: center;
+  align-items: center;
+}
+
+#lm-modal-header {
+  grid-row: 1 / 2;
+  grid-column: 1 / 3;
+  text-align: center;
+  padding: 20px;
+}
+
+.modal-content .lm-modal-roles {
+  border: 2px solid black;
+  font-size: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#lm-choose-1 {
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
+  width: 80%;
+}
+
+#lm-choose-2 {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+  width: 80%;
+}
+
+#lm-choose-1:hover, #lm-choose-2:hover {
+  background-color: rgba(255, 70, 146, 0.2);
+  cursor: pointer;
+}
+
+#lm-choose-2 {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+  width: 80%;
+}
+
+#lmImage1, #lmImage2 {
+  display: block;
+  width: 150px;
+  height: 150px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  object-fit: cover;
+}
+
+#lmRole1, #lmRole2 {
+  padding: 0px;
+}
+
+#lmTurn1, #lmTurn2 {
+  font-size: .8em;
+}
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  z-index: 3;
+}
+
+/* sets up the container for dropdown content (in this case, the choose conversation dropdown). */
+.dropdown-content {
+  display: none; /* hidden by default */
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 3;
+}
+
+/* Links inside the dropdown: default appearance settings */
+.dropdown-content p {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  z-index: 3;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content p:hover {background-color: #ddd; cursor: pointer;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: lightpink; cursor: pointer;}
+
+/* Popup container: default settings. NOTE: "Popup" is different from the modal windows. "Popup" is a technical term that refers here specifically to the little box that appears when you click on the start game button when you haven't loaded a conversation */
+.popup {
+  position: relative;
+  display: inline-block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup: default appeareance settings */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  font-size: .4rem;
+  z-index: 3;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow: default appearance settings */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+
+html {
+  background-color:white;
+}
+
+/* settings for the start screen (what appears when you first load the page) */
+#startScreen {
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 20vh .3fr 6fr;
+  grid-template-areas:
+    "header header"
+    "start-menu-button-container start-menu-button-container"
+    "conversationWindow conversationWindow";
+}
+
+/* sets up the grid area for the start screen */
+#startHeader {
+  grid-area: header;
+  background-color: #00D3FA;
+  color: white;
+}
+
+.title, .tagline {
+  font-weight: 500;
+  /* transition: all 0.15s linear; > I don't like this effect */
+}
+
+/* sets up the grid area for the start screen */
+#start-menu-button-container {
+  grid-area: start-menu-button-container;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: #00D3FA;
+  color: white;
+}
+
+/* sets up the grid area for the start screen */
+
+/* appearance of border for the conversation table */
+
+#conversationWindow {
+  grid-area: conversationWindow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: .8rem;
+}
+
+/* sets up the container for the conversation dialogue table on the Start Screen */
+#convoGrid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: .7fr 1fr 8fr .2fr;
+  grid-template-rows: auto;
+  grid-auto-flow: auto;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.convoTitle {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  grid-row: 1 / 1;
+  grid-column: 1 / 5;
+  text-align: center;
+}
+
+.btn#audio-btn-play-entire {
+  grid-row: 1 / 1;
+  grid-column: 4 / 5;
+  place-self: center;
+  text-align: center;
+  max-height: 60%;
+  background-color: #00D3FA;
+  border-radius: 10px;
+  color: white;
+  padding: 5px;
+  margin: 5px;
+  font-size: .5rem;
+}
+
+.btn#audio-btn-play-entire.hover:hover {
+  background-color: lightpink;
+}
+
+.shadow {
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
+  box-shadow:         3px 3px 5px 6px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+
+.convoBox {
+  border: 1px solid black;
+  height: 80px;
+  font-size: .8rem;
+  padding: 25px 10px;
+}
+
+.convo-grid-dialogue.hover:hover {
+  background-color: #00D3FA;
+  color: white;
+}
+
+.convo-grid-dialogue.active {
+  background-color: #00D3FA;
+  color: white;
+}
+
+.convo-grid-translation {
+  height: 80px;
+  font-size: .7rem;
+  padding: 25px 10px;
+  grid-column-start: 3;
+  color: #96d738;
+  display: none;
+}
+
+.convo-grid-translation .show {
+  display: block;
+}
+
+.convo-grid-img-container {
+  grid-column-start: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.convo-grid-img {
+  display: block;
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+}
+
+.convo-grid-audio-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.audio-btn-play-line {
+  display: block;
+  margin: auto;
+  height: 25px;
+  width: 25px;
+  object-fit: cover;
+}
+
+/* settings for the options screen (after you click play button, settings menu) */
+#optionsScreen {
+  position: absolute;
+  z-index: 4;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  gap: 5px;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 20vh 1fr 25vh .5fr 3fr;
+  grid-template-areas:
+    "header header"
+    "convoTitle convoTitle"
+    "learn-mode-button game-mode-button"
+    ". difficulty-select-container"
+    "learn-mode-explainer game-mode-explainer"
+}
+
+.back-btn {
+  grid-row-start: 1;
+  grid-column-start: 1;
+  position: relative;
+  text-decoration: none;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  margin: 10px; 
+  border: 0px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #FF9800;
+  color: white;
+  border-radius: 50%;
+  font-size: .7em;
+}
+
+.back-btn:hover {
+  background-color: #f1f1f1;
+  color: black;
+  cursor: pointer;
+}
+
+#optionsHeader {
+  grid-area: header;
+  width: 100%;
+  height: 100%;
+  background-color: #00D3FA;
+  color: white;
+}
+
+#options-convo-title {
+  grid-area: convoTitle;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  font-size: 1rem;
+  text-align: center;
+  border: 3px solid #FF9800;
+}
+
+#learn-mode-button-container {
+  grid-area: learn-mode-button;
+}
+
+#learn-mode-btn {
+  background-color: #96d738;
+  border: #96d738;
+  width: 25vw;
+  height: 25vh;
+  font-size: 2rem;
+}
+
+#game-mode-button-container {
+  grid-area: game-mode-button;
+}
+
+#game-mode-btn {
+  background-color: #96d738;
+  border: #96d738;
+  width: 25vw;
+  height: 25vh;
+  font-size: 2rem;
+}
+
+#learn-mode-btn:hover, #game-mode-btn:hover {
+  cursor: pointer;
+  box-shadow: 3px -3px 60px #1beabd,  -3px 3px 60px #10abff;
+}
+
+#difficulty-select-container {
+  grid-area: difficulty-select-container;
+  display: flex;
+  flex-direction: row;
+  align-items: center;;
+  justify-content: center;
+}
+
+#difficulty-dropdown {
+  flex-basis: 35%;
+  margin: 10px;
+}
+
+#difficulty-selected {
+  font-size: 1rem;
+  flex-basis: 20%;
+  margin: 10px;
+}
+
+#learn-mode-explainer {
+  grid-area: learn-mode-explainer;
+  align-self: start;
+}
+
+#game-mode-explainer {
+  grid-area: game-mode-explainer;
+  align-self: start;
+}
+
+.options-explainer {
+  border-top: 3px solid #00D3FA;
+  padding: 10px;
+  margin: 10px;
+  margin-top: 40px;
+  font-size: .8rem;
+}
+
+/* sets up the layout of the Game interface */
+#gameContainer {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 100vw;
+  grid-template-rows: 10vh 15vh 55vh 20vh;
+  justify-content: center;
+  text-align: center;
+  z-index: 0;
+  grid-template-areas:
+  "menuWindow"
+  "scoreboardWindow"
+  "dialogueWindow"
+  "controlsWindow";
+}
+
+#menuWindow {
+  grid-area: menuWindow;
+  display: grid;
+  grid-template-columns: 15% 60% 25%;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-content: center;
+}
+
+#dialogueTitle, #roundCounter {
+  font-size: 1rem;
+  margin: 10px 20px;
+}
+
+#roundCounter {
+  grid-column: 1 / 2;
+  grid-row: 1;
+  justify-self: start;
+}
+
+#dialogueTitle {
+  grid-column: 1 / 4;
+  grid-row: 1;
+  width: 100%;
+  text-align: center;
+}
+
+#menuWindow-buttons {
+  grid-column: 3 / 4;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.btn.menu-btn {
+  margin-left: 0px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 8px;
+  max-height: 70%;
+}
+
+/* sets up the layout of the Scoreboard section */
+#scoreboardWindow {
+  grid-area: scoreboardWindow;
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+/* appearance of the player info boxes on the sides of the screenboard */
+.playerWindow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: space-between;
+  font-size: .7rem;
+}
+
+.role, .scoreCounter, .playerImage {
+  padding: 5px;
+}
+
+/* size of player image */
+.playerImage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+}
+
+/* sets up flexbox with two rows: the energy bar and the energy counters */
+#energyContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* sets up the layout of the Energy Bar */
+#energyWindow {
+  display: flex;
+  align-items: center;
+  flex-basis: 100%;
+  height: 40%;
+}
+
+#player1Bar {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background-color: #96d738;
+  transition-property: width;
+  transition-duration: .2s;
+  transition-timing-function: linear;
+}
+
+#player2Bar {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background-color: #FF4692;
+  transition-property: width;
+  transition-duration: .2s;
+  transition-timing-function: linear;
+}
+
+#player1Bar.frozen {
+  background-color: rgba(150, 215, 56, 0.2);
+}
+
+#player1Bar.in-trouble {
+  background-color: #d7cf37;
+}
+
+#player2Bar.frozen {
+  background-color: rgba(255, 70, 146, 0.2);
+}
+
+.energyCounter {
+  margin-bottom: 10px;
+  padding: 0px;
+  font-size: 1rem;
+}
+
+/* sets up the layout of the Dialogue Window */
+#dialogueWindow {
+  grid-area: dialogueWindow;
+  border: 2px solid black;
+  overflow: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 50px;
+  grid-gap: 10px;
+  justify-content: space-between;
+  align-content: start;
+  text-align: center;
+}
+
+/* appearance of the dialogue lines/boxes */
+.dialogueBox {
+  display: flex;
+  width: 90%;
+  font-size: .8rem;
+  height: 75px;
+  padding: 10px;
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* dialogue box 1 appears on the left edge of window */
+.dBox1 {
+  justify-self: start;
+}
+
+/* dialogue box 2 appears on the left edge of window */
+.dBox2 {
+  justify-self: end;
+}
+
+/* border for each line of dialogue */
+.dBoxActive {
+  border: 1px solid grey;
+}
+
+.dBox1.dBoxActive {
+  background-color: rgba(150, 215, 56, 0.5);
+}
+
+.dBox2.dBoxActive {
+  background-color: rgba(255, 70, 146, 0.5);
+}
+
+.dBoxActive.answering {
+  border: 1px solid #9880ff;
+  background-color: #fff;
+}
+
+/* border for controls window */
+#controlsWindow {
+  grid-area: controlsWindow;
+  display: grid;
+  grid-template-rows: 1fr 10fr;
+  grid-template-columns: 1fr;
+}
+
+#timerBar {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+  display: block;
+  width: 100%;
+  background-color: #00D3FA;
+  transition-property: width;
+  transition-duration: .2s;
+  transition-timing-function: linear;
+}
+
+#announcementContainer {
+  grid-row: 1 / 3;
+  grid-column: 1 / 2;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+#announcementBox {
+  font-size: 2rem;
+}
+
+/* setting up layout for answer choice buttons */
+#answerButtonContainer {
+  grid-row: 2 / 3; 
+  grid-column: 1 / 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  align-items: start;
+  justify-content: center;
+  width: 100%;
+}
+
+/* answer Buttons */
+.btn.answerBtn {
+  display: block;
+  border: 1px solid black;
+  background-color: #FF9800;
+  color: white;
+  padding: 5px;
+  margin: 5px;
+  font-size: .8rem;
+  height: 90%;
+  max-height: 90%;
+  overflow: hidden;
+}
+
+/* color of answer buttons when they are shown but unclickable (answered already, paused, etc.) */
+.btn.frozen {
+  background-color: whitesmoke;
+  color: gray;
+}
+
+/* appearance settings for checkmark (i.e. right) and xmarks (i.e. wrong) pictures next to answer choices -- the picture is toggeled on/off (using a CSS class) as a background image for the button) */
+.checkmark {
+  background: url(images/check.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.xmark {
+  background: url(images/xmark.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* font size for certain text in the Game Over modal window*/
+#endMessage {
+  font-size: 2rem;
+}
+
+/* LEARN MODE */
+#learnControlsWindow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn.learn-menu {
+  background-color: #00D3FA;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.btn.learn-menu.frozen {
+  background-color: whitesmoke;
+  color: gray;
+  border: medium none color;
+}
+
+#energyWindow {
+  display: flex;
+  align-items: center;
+  flex-basis: 100%;
+  height: 40%;
+}
+
+.energyCounter {
+  margin-bottom: 10px;
+  padding: 0px;
+  font-size: 1rem;
+}
+
+/* Three Dots animation for placeholder in-progress "answering" window */
+
+.dot-flashing {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+  animation: dotFlashing .75s infinite linear alternate;
+  animation-delay: 0.375s;
+}
+
+.dot-flashing::before,
+.dot-flashing::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+
+.dot-flashing::before {
+  left: -15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+  animation: dotFlashing .75s infinite alternate;
+  animation-delay: 0s;
+}
+
+.dot-flashing::after {
+  left: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+  animation: dotFlashing .75s infinite alternate;
+  animation-delay: .75s;
+}
+
+@keyframes dotFlashing {
+  0% {
+    background-color: #9880ff;
+  }
+  50%,
+  100% {
+    background-color: #ebe6ff;
+  }
+}
+
