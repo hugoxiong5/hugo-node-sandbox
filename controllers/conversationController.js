@@ -32,20 +32,8 @@ exports.convo_create_post = function(req, res) {
         req.body.line8,
         req.body.line9,
         req.body.line10,
-        req.body.line11,
-        req.body.line12,
-        req.body.line13,
-        req.body.line14,
-        req.body.line15,
-        req.body.line16
       ],
       translations: [
-        'no translation',
-        'no translation',
-        'no translation',
-        'no translation',
-        'no translation',
-        'no translation',
         'no translation',
         'no translation',
         'no translation',
@@ -59,7 +47,16 @@ exports.convo_create_post = function(req, res) {
       ],
       audio: [],
     }
+    
   );
+
+//   conversation.set('validateBeforeSave', false);
+
+//   for (i=0; i<conversation.lines.length; i++) {
+//       if (conversation.lines[i] == undefined) {
+//         conversation.lines[i] == '';
+//       }
+//   }
 
     console.log(conversation);
 

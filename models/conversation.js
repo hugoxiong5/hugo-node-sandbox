@@ -14,28 +14,16 @@ var ConversationSchema = new Schema(
     lines: [
       {type: String, required: true},
       {type: String, required: true},
+      {type: String, requred: true},
+      {type: String, required: true},
       {type: String},
       {type: String},
       {type: String},
       {type: String},
       {type: String},
       {type: String},
-      {type: String},
-      {type: String},
-      {type: String},
-      {type: String},
-      {type: String},
-      {type: String},
-      {type: String},
-      {type: String}
     ],
     translations: [
-      {type: String},
-      {type: String},
-      {type: String},
-      {type: String},
-      {type: String},
-      {type: String},
       {type: String},
       {type: String},
       {type: String},
@@ -50,6 +38,8 @@ var ConversationSchema = new Schema(
     audio: [{type: String}],
   }
 );
+
+// ConversationSchema.set('validateBeforeSave', false);
 
 //Export Conversation model
 module.exports = mongoose.model('Conversation', ConversationSchema);
