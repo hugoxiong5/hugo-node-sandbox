@@ -623,7 +623,29 @@ function viewTranslation(evt) {
   }
 }
 
-//#endregion
+
+
+
+// click on edit/delete button (with conversation selected)
+
+function editConvo() {
+  if (conversation._id == undefined) {
+    pingSound.play();
+    document.getElementById('select-popup').classList.toggle('show');
+    return;
+  }
+
+  let id = conversation._id;
+
+  window.location.href = '/peaksay/conversation/' + id;
+
+}
+
+// convo.url + '/delete'
+
+// http://localhost:3000/peaksay/conversation/5e6f9c69a0e60b09d3ffe633
+
+
 
 /*-------------------------------------------------------------------
 8. OPTIONS SCREEN AND START GAME

@@ -2,9 +2,9 @@ var express = require('express');
 
 var router = express.Router();
 
-/* REDIRECT to main home page (Catalog). */
+/* REDIRECT to Peaksay sandbox */
 router.get('/', function(req, res) {
-  res.redirect('/catalog');
+  res.redirect('/peaksay/sandbox');
 });
 
 module.exports = router;

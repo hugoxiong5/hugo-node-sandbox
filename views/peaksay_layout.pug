@@ -6,7 +6,7 @@ head
   meta(name='description' content='The conversation game for learning languages')
   meta(name='author' content='Hugo Xiong')
   // favicon file
-  link(rel='icon' href='/Users/hugo/Dropbox/Programming/node-sandbox/hugo-node-sandbox/public/favicon.ico' type='image/x-icon')
+  link(rel='icon' href= __rootdir + '/public/favicon.ico' type='image/x-icon')
   // link to import the Varela Round font from Google Fonts
   link(href='https://fonts.googleapis.com/css?family=Varela+Round&display=swap' rel='stylesheet')
   // link to main CSS stylesheet
@@ -15,11 +15,6 @@ head
 #startScreen
   #startHeader.flex-default
     h1.title peaksay (pug template engine)
-    //
-      <h1 class="peaksay-logo-link">
-      <a ref="https://peaksay.com">
-      <img width="170.549" height="59.990" src="https://fluentkey.com/blog/wp-content/uploads/cropped-logo-variant-nosloga-square-300x106.png">
-      </a>
     h3.tagline the conversation game!
     // <button class="btn hover" id="text-to-speech" onClick="textToSpeech()">Click for TEXT TO SPEECH</button>
   // elements for start Button
@@ -30,11 +25,12 @@ head
     button#instructionsButton.btn.hover(onclick='instructions()') How to Play
   // elements for conversation button and dropdown
   #conversationWindow
-    button.btn
-      a(href='/peaksay/create') Create New Conversation
     #convo-dropdown.dropdown
       button.btn.dropbtn Choose Conversation
       #convo-dropdown-content.dropdown-content
+    button#editButton.btn.hover(onclick='editConvo()') Edit/Delete Selected Conversation
+    button.btn.hover
+      a(href='/peaksay/create') Create New Conversation
     #convoGrid
 // Instructions Modal Window
 // modal means a pop-up window that appears during certain conditions (i.e. when you click on a button), not usually visible

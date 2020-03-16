@@ -1,31 +1,25 @@
-extends layout
+doctype html
+head
+  meta(charset='utf-8')
+  title Peaksay
 
-block content
   h1 Peaksay: Edit and Delete A Conversation
 
 
   h2= convo.title
 
-
-  form(method='POST' action='')
-    div.form-group
-      input#authorid.form-control(type='hidden',name='convoid', required='true', value=convo._id )
-
-    button.btn.btn-primary(type='submit') Delete
-
+  a(href='/peaksay/sandbox') go back 
+    
   hr
-  p
-  //- a(href=author.url+'/delete') Delete author
 
-
-  form
+  form(method='post' action='')
     ul
       li
         label(for='title') Title:
-        input#title(type='text' name='title' required='true' autofocus='')
+        input#title(type='text' name='title' required='true' value=convo.title)
       li
         p Language:
-        input(list='language' name='language' required='true')
+        input(list='language' name='language' required='true' value=convo.language) 
         datalist#language
           option(value='English')
           option(value='Spanish')
@@ -34,7 +28,7 @@ block content
           option(value='Other')
       li
         p Difficulty:
-        input(list='difficulty' name='difficulty' required='true')
+        input(list='difficulty' name='difficulty' required='true' value=convo.difficulty)
         datalist#difficulty
           option(value='A1: Novice 1')
           option(value='A2: Novice 2')
@@ -45,40 +39,52 @@ block content
       br
       li
         label(for='character1') Character 1:
-        input#character-1(type='text' name='character1' required='true')
+        input#character-1(type='text' name='character1' required='true' value=convo.characters.names[0])
       li
         label(for='character2') Character 2:
-        input#character-2(type='text' name='character2' required='true')
+        input#character-2(type='text' name='character2' required='true' value=convo.characters.names[1])
       br
       li
         label(for='line1') Line 1 (Character 1): 
-        input#line1(type='text' name='line1' required='true')
+        input#line1(type='text' name='line1' required='true' value=convo.lines[0])
       li
         label(for='line2') Line 2 (Character 2): 
-        input#line2(type='text' name='line2' required='true')
+        input#line2(type='text' name='line2' required='true' value=convo.lines[1])
       li
         label(for='line3') Line 3 (Character 1): 
-        input#line3(type='text' name='line3' required='true')
+        input#line3(type='text' name='line3' required='true' value=convo.lines[2])
       li
         label(for='line4') Line 4 (Character 2): 
-        input#line4(type='text' name='line4' required='true')
+        input#line4(type='text' name='line4' required='true' value=convo.lines[3])
       li
         label(for='line5') Line 5 (Character 1): 
-        input#line5(type='text' name='line5' required='true')
+        input#line5(type='text' name='line5' required='true' value=convo.lines[4])
       li
         label(for='line6') Line 6 (Character 2): 
-        input#line6(type='text' name='line6' required='true')
+        input#line6(type='text' name='line6' required='true' value=convo.lines[5])
       li
         label(for='line7') Line 7 (Character 1): 
-        input#line7(type='text' name='line7' required='true')
+        input#line7(type='text' name='line7' required='true' value=convo.lines[6])
       li
         label(for='line8') Line 8 (Character 2): 
-        input#line8(type='text' name='line8' required='true')
+        input#line8(type='text' name='line8' required='true' value=convo.lines[7])
       li
         label(for='line9') Line 9 (Character 1): 
-        input#line9(type='text' name='line9' required='true')
+        input#line9(type='text' name='line9' required='true' value=convo.lines[8])
       li
         label(for='line10') Line 10 (Character 2): 
-        input#line10(type='text' name='line10' required='true')
+        input#line10(type='text' name='line10' required='true' value=convo.lines[9])
+
       br
-      li.button
+
+      input#authorid.form-control-edit(type='hidden',name='convoid', required='true', value=convo._id )
+
+      button.btn.btn-primary(type='submit') Edit
+
+  hr
+
+  form(method='post' action= convo.url + '/delete')
+    div.form-group
+      input#authorid.form-control-delete(type='hidden',name='convoid', required='true', value=convo._id )
+
+    button.btn.btn-primary(type='submit') Delete

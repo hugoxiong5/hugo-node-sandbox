@@ -12,6 +12,10 @@
   font-size: 1.7vw;
 }
 
+a {
+  text-decoration: none;
+}
+
 /* default flexbox settings */
 .flex-default {
   display: flex;
@@ -75,6 +79,10 @@ li {
 
 .btn.hover:hover {
   background-color: lightpink;
+}
+
+.btn a:visited {
+  color: white;
 }
 
 /* sets up the background of all Modal Windows, allows clicking outside the window to close it */

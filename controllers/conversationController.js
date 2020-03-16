@@ -64,7 +64,7 @@ exports.convo_create_post = function(req, res) {
 exports.conversation_list = function(req, res, next) {
 
     Conversation.find({}, 'title language difficulty', function(err, conversations) {
-        if (err) return handleError(err);
+        if(err) console.log(err);
         res.render('peaksay_convos', {conversation_list: conversations}); // IMPORTANT: "conversation-list" is a local variable that will be passed on to the view
 
     });
@@ -75,7 +75,7 @@ exports.conversation_list = function(req, res, next) {
 exports.render_start_screen = function(req, res, next) {
 
     Conversation.find({}, function(err, conversations) {
-        if (err) return handleError(err);
+        if(err) console.log(err);
         res.render('peaksay_layout', {conversation_list: conversations}); // IMPORTANT: "conversation-list" is a local variable that will be passed on to the view
     });
 
@@ -86,12 +86,63 @@ exports.render_start_screen = function(req, res, next) {
 exports.convo_detail = function(req, res) {
 
     Conversation.findById(req.params.id, function(err, convo_this) {
-        if (err) return handleError(err);
+        if(err) console.log(err);
         res.render('peaksay_convo_edit', {convo: convo_this});
     });
 
 };
 
+//edit a conversation
+exports.convo_edit = function(req, res) {
+    console.log("conversation edit function has been called");
+
+    let conversation = new Conversation(
+        {
+            _id: req.params.id,
+            title: req.body.title,
+            language: req.body.language,
+            difficulty: req.body.difficulty,
+            characters: {
+            names: [req.body.character1, req.body.character2],
+            images: ['no image', 'no image'],
+            },
+            lines: [
+            req.body.line1,
+            req.body.line2,
+            req.body.line3,
+            req.body.line4,
+            req.body.line5,
+            req.body.line6,
+            req.body.line7,
+            req.body.line8,
+            req.body.line9,
+            req.body.line10,
+            ],
+            translations: [
+            'no translation',
+            'no translation',
+            'no translation',
+            'no translation',
+            'no translation',
+            'no translation',
+            'no translation',
+            'no translation',
+            'no translation',
+            'no translation',
+            ],
+            audio: [],
+        }
+    );
+
+    console.log(conversation);
+
+    Conversation.findByIdAndUpdate(req.params.id, conversation, {}, function(err, theconvo) {
+        if(err) console.log(err);
+        console.log("conversation " + theconvo.title + " has been updated");
+        res.redirect(theconvo.url);
+    });
+
+}
 
 // delete a conversation
 exports.convo_delete = function(req, res) {
@@ -99,7 +150,7 @@ exports.convo_delete = function(req, res) {
     Conversation.findByIdAndDelete(req.body.convoid, function(err) {
         if(err) console.log(err);
         console.log("Conversation deleted!");
-        res.redirect('/peaksay/conversations');
+        res.redirect('/peaksay/sandbox');
     });
 
 };

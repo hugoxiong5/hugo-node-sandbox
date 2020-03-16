@@ -29,11 +29,14 @@ router.get('/create', conversation_controller.convo_create_get);
 // // POST request for creating a conversation.
 router.post('/create', conversation_controller.convo_create_post);
 
-// GET request for one conversation at a unique URL.
+// GET request for one conversation at a unique URL: view convo details
 router.get('/conversation/:id', conversation_controller.convo_detail);
 
-// POST request (update/delete?)
-router.post('/conversation/:id', conversation_controller.convo_delete);
+// POST request (update/edit conversation)
+router.post('/conversation/:id', conversation_controller.convo_edit);
+
+// delete a conversation
+router.post('/conversation/:id/delete', conversation_controller.convo_delete);
 
 module.exports = router;
 
