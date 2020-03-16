@@ -3,35 +3,71 @@ var Conversation = require('../models/conversation');
 
 var async = require('async');
 
-
 // Display Peaksay conversation create form on GET.
 exports.convo_create_get = function(req, res) { 
-    res.sendFile( __rootdir + "/public/peaksay-form.html");
+    res.sendFile(__rootdir + "/public/peaksay-form.html");
 };
 
 // Handle Peaksay conversation create on POST.
 exports.convo_create_post = function(req, res) {
     console.log("conversation post function has been called");
 
-    // Create a simple Conversation object/document.
-    var conversation = new Conversation(
-        {   title: req.body.title,
-            language: req.body.language,
-            difficulty: req.body.difficulty,
-            character1: req.body.character1,
-            character2: req.body.character2,
-            line1: req.body.line1,
-            line2:req.body.line2,
-            line3:req.body.line3,
-            line4: req.body.line4
-        });
+  var conversation = new Conversation(
+    {
+      title: req.body.title,
+      language: req.body.language,
+      difficulty: req.body.difficulty,
+      characters: {
+        names: [req.body.character1, req.body.character2],
+        images: ['no image', 'no image'],
+      },
+      lines: [
+        req.body.line1,
+        req.body.line2,
+        req.body.line2,
+        req.body.line2,
+        req.body.line2,
+        req.body.line2,
+        req.body.line2,
+        req.body.line2,
+        req.body.line2,
+        req.body.line2,
+        req.body.line2,
+        req.body.line2,
+        req.body.line2,
+        req.body.line2,
+        req.body.line2,
+        req.body.line2
+      ],
+      translations: [
+        'no translation',
+        'no translation',
+        'no translation',
+        'no translation',
+        'no translation',
+        'no translation',
+        'no translation',
+        'no translation',
+        'no translation',
+        'no translation',
+        'no translation',
+        'no translation',
+        'no translation',
+        'no translation',
+        'no translation',
+        'no translation',
+      ],
+      audio: [],
+    }
+  );
 
     console.log(conversation);
 
     conversation.save(function (err) {
         if (err) return console.error(err);
         console.log("New conversation created in database: " + conversation.title);
-        res.redirect('../peaksay/conversations');
+        res.redirect('/peaksay/sandbox');
+
     });
 
 
@@ -42,7 +78,7 @@ exports.conversation_list = function(req, res, next) {
 
     Conversation.find({}, 'title', function(err, conversations) {
         if (err) return handleError(err);
-        res.render('peaksay_convos', {hello: conversations}); // IMPORTANT: "conversation-list" is a local variable that will be passed on to the view
+        res.render('peaksay_convos', {conversation_list: conversations}); // IMPORTANT: "conversation-list" is a local variable that will be passed on to the view
 
     });
 

@@ -280,33 +280,33 @@ function sound(src) {
 }
 
 // add sound objects using the above Constructor function
-const startSound = new sound('audio/sounds/go.wav');
-const displaySound = new sound('audio/sounds/bounce.wav');
-const scoreSound = new sound('audio/sounds/score.wav');
+const startSound = new sound('/audio/sounds/go.wav');
+const displaySound = new sound('/audio/sounds/bounce.wav');
+const scoreSound = new sound('/audio/sounds/score.wav');
 scoreSound.sound.volume = 0.1;
-const failSound = new sound('audio/sounds/fail.mp3');
+const failSound = new sound('/audio/sounds/fail.mp3');
 failSound.sound.volume = 0.1;
-const winSound = new sound('audio/sounds/win.wav');
-const byeSound = new sound('audio/sounds/bye.wav');
-const levelUpSound = new sound('audio/sounds/levelUp.wav');
-const powerUpSound = new sound('audio/sounds/power-up.flac');
+const winSound = new sound('/audio/sounds/win.wav');
+const byeSound = new sound('/audio/sounds/bye.wav');
+const levelUpSound = new sound('/audio/sounds/levelUp.wav');
+const powerUpSound = new sound('/audio/sounds/power-up.flac');
 powerUpSound.sound.volume = 0.2;
-const dangerSound = new sound('audio/sounds/danger.wav');
+const dangerSound = new sound('/audio/sounds/danger.wav');
 dangerSound.sound.volume = 0.2;
-const gameOverSound = new sound('audio/sounds/gameover.wav');
-const successSound = new sound('audio/sounds/success.wav');
+const gameOverSound = new sound('/audio/sounds/gameover.wav');
+const successSound = new sound('/audio/sounds/success.wav');
 successSound.sound.volume = 0.4;
-const chargeSound = new sound('audio/sounds/power-charge.wav');
+const chargeSound = new sound('/audio/sounds/power-charge.wav');
 chargeSound.sound.volume = .5;
-const laserSound = new sound('audio/sounds/laser.wav');
+const laserSound = new sound('/audio/sounds/laser.wav');
 laserSound.sound.volume = 0.1;
-const pingSound = new sound('audio/sounds/ping.wav');
+const pingSound = new sound('/audio/sounds/ping.wav');
 pingSound.sound.volume = 0.025;
-const music = new sound('audio/sounds/backgroundmusic.wav');
+const music = new sound('/audio/sounds/backgroundmusic.wav');
 music.sound.setAttribute('loop', 'true');
 music.sound.volume = 0.1;
-const hardBtnSound = new sound('audio/sounds/hardbutton.wav');
-const softBtnSound = new sound('audio/sounds/softbutton.wav');
+const hardBtnSound = new sound('/audio/sounds/hardbutton.wav');
+const softBtnSound = new sound('/audio/sounds/softbutton.wav');
 hardBtnSound.sound.volume = 0.1;
 softBtnSound.sound.volume = 0.1;
 
@@ -455,6 +455,40 @@ function resetGame() {
 
 }
 
+// //manually add audio for each line in Conversation 7
+// for (i=0; i<conversation7.lines.length; i++) {
+//   let line = new sound(`audio/speech/id7_line${i}.mp3`);
+//   line.sound.volume = 1;
+//   conversation7.audio.push(line);
+// }
+
+// //manually add audio for each line in Conversation 4
+// for (i=0; i<conversation4.lines.length; i++) {
+//   let line = new sound(`audio/speech/id4_line${i}.mp3`);
+//   line.sound.volume = 1;
+//   conversation4.audio.push(line);
+// }
+
+// //manually add audio for each line in Conversation 7
+// for (i=0; i<conversation7.lines.length; i++) {
+//   let line = new sound(`audio/speech/id7_line${i}.mp3`);
+//   line.sound.volume = 1;
+//   conversation7.audio.push(line);
+// }
+
+//manually add audio for each line in Conversation 8
+
+let conversation8 = conversationSet[15];
+
+for (i=0; i<conversation8.lines.length; i++) {
+  let line = new sound(`/audio/speech/id8_line${i}.mp3`);
+  line.sound.volume = 1;
+  conversation8.audio.push(line);
+}
+
+
+
+
 // populate dropdown list of conversations (NOTE: will move into a different "search/filter" function in later version)
 for (i = 1; i < conversationSet.length + 1; i++) {
   const convoTitle = document.createElement('p');
@@ -562,7 +596,7 @@ function viewConvo() {
     audioButton.classList.add(`${i}-line`);
     audioButton.classList.add('audio-btn-play-line');
     audioButton.classList.add('hover');
-    audioButton.src = 'images/audio-button.png';
+    audioButton.src = '/images/audio-button.png';
     audioButton.addEventListener("click", playAudio);
 
     // create "hidden text" row under each dialogue line (to contain the translation -- toggle open/closed)

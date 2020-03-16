@@ -6,7 +6,7 @@ head
   meta(name='description' content='The conversation game for learning languages')
   meta(name='author' content='Hugo Xiong')
   // favicon file
-  link(rel='icon' href='favicon.ico' type='image/x-icon')
+  link(rel='icon' href='/Users/hugo/Dropbox/Programming/node-sandbox/hugo-node-sandbox/public/favicon.ico' type='image/x-icon')
   // link to import the Varela Round font from Google Fonts
   link(href='https://fonts.googleapis.com/css?family=Varela+Round&display=swap' rel='stylesheet')
   // link to main CSS stylesheet
@@ -14,15 +14,7 @@ head
 // elements for "start Screen", with instructions for the game and a start button
 #startScreen
   #startHeader.flex-default
-    h1.title peaksay: PUG TEMPLATE ENGINE: DYNAMIC PAGE
-
-    
-    
-    //- #{conversation_list}
-
-    // p. conversation_list
-    // #{conversation_list}"
-
+    h1.title peaksay (pug template engine)
     //
       <h1 class="peaksay-logo-link">
       <a ref="https://peaksay.com">
@@ -38,6 +30,8 @@ head
     button#instructionsButton.btn.hover(onclick='instructions()') How to Play
   // elements for conversation button and dropdown
   #conversationWindow
+    button.btn
+      a(href='/peaksay/create') Create New Conversation
     #convo-dropdown.dropdown
       button.btn.dropbtn Choose Conversation
       #convo-dropdown-content.dropdown-content
@@ -174,9 +168,6 @@ head
 
 // link to outside JS script
 
-
-  //- h1= conversation_list
-
 script.
   var data = !{JSON.stringify(conversation_list).replace(/<\//g, '<\\/')};
   // var data2 = JSON.parse('!{JSON.stringify(conversation_list)}');
@@ -188,7 +179,6 @@ script.
 //-     // var hello = conversation_list
 
 script(src='/scripts.js')
-
 
 
 // Passing variables into Pug script file:
