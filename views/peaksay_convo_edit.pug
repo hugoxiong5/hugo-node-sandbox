@@ -1,0 +1,84 @@
+extends layout
+
+block content
+  h1 Peaksay: Edit and Delete A Conversation
+
+
+  h2= convo.title
+
+
+  form(method='POST' action='')
+    div.form-group
+      input#authorid.form-control(type='hidden',name='convoid', required='true', value=convo._id )
+
+    button.btn.btn-primary(type='submit') Delete
+
+  hr
+  p
+  //- a(href=author.url+'/delete') Delete author
+
+
+  form
+    ul
+      li
+        label(for='title') Title:
+        input#title(type='text' name='title' required='true' autofocus='')
+      li
+        p Language:
+        input(list='language' name='language' required='true')
+        datalist#language
+          option(value='English')
+          option(value='Spanish')
+          option(value='French')
+          option(value='Chinese')
+          option(value='Other')
+      li
+        p Difficulty:
+        input(list='difficulty' name='difficulty' required='true')
+        datalist#difficulty
+          option(value='A1: Novice 1')
+          option(value='A2: Novice 2')
+          option(value='B1: Intermediate 1')
+          option(value='B2: Intermediate 2')
+          option(value='C1: Advanced 1')
+          option(value='C2: Advanced 2')
+      br
+      li
+        label(for='character1') Character 1:
+        input#character-1(type='text' name='character1' required='true')
+      li
+        label(for='character2') Character 2:
+        input#character-2(type='text' name='character2' required='true')
+      br
+      li
+        label(for='line1') Line 1 (Character 1): 
+        input#line1(type='text' name='line1' required='true')
+      li
+        label(for='line2') Line 2 (Character 2): 
+        input#line2(type='text' name='line2' required='true')
+      li
+        label(for='line3') Line 3 (Character 1): 
+        input#line3(type='text' name='line3' required='true')
+      li
+        label(for='line4') Line 4 (Character 2): 
+        input#line4(type='text' name='line4' required='true')
+      li
+        label(for='line5') Line 5 (Character 1): 
+        input#line5(type='text' name='line5' required='true')
+      li
+        label(for='line6') Line 6 (Character 2): 
+        input#line6(type='text' name='line6' required='true')
+      li
+        label(for='line7') Line 7 (Character 1): 
+        input#line7(type='text' name='line7' required='true')
+      li
+        label(for='line8') Line 8 (Character 2): 
+        input#line8(type='text' name='line8' required='true')
+      li
+        label(for='line9') Line 9 (Character 1): 
+        input#line9(type='text' name='line9' required='true')
+      li
+        label(for='line10') Line 10 (Character 2): 
+        input#line10(type='text' name='line10' required='true')
+      br
+      li.button

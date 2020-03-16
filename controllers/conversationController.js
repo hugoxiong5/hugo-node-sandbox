@@ -50,16 +50,6 @@ exports.convo_create_post = function(req, res) {
     
   );
 
-//   conversation.set('validateBeforeSave', false);
-
-//   for (i=0; i<conversation.lines.length; i++) {
-//       if (conversation.lines[i] == undefined) {
-//         conversation.lines[i] == '';
-//       }
-//   }
-
-    console.log(conversation);
-
     conversation.save(function (err) {
         if (err) return console.error(err);
         console.log("New conversation created in database: " + conversation.title);
@@ -73,7 +63,7 @@ exports.convo_create_post = function(req, res) {
 // Display list of all conversations.
 exports.conversation_list = function(req, res, next) {
 
-    Conversation.find({}, 'title', function(err, conversations) {
+    Conversation.find({}, 'title language difficulty', function(err, conversations) {
         if (err) return handleError(err);
         res.render('peaksay_convos', {conversation_list: conversations}); // IMPORTANT: "conversation-list" is a local variable that will be passed on to the view
 
@@ -90,6 +80,57 @@ exports.render_start_screen = function(req, res, next) {
     });
 
 };
+
+
+// display details of a specific conversation (at a unique URL)
+exports.convo_detail = function(req, res) {
+
+    Conversation.findById(req.params.id, function(err, convo_this) {
+        if (err) return handleError(err);
+        res.render('peaksay_convo_edit', {convo: convo_this});
+    });
+
+};
+
+
+// delete a conversation
+exports.convo_delete = function(req, res) {
+
+    Conversation.findByIdAndDelete(req.body.convoid, function(err) {
+        if(err) console.log(err);
+        console.log("Conversation deleted!");
+        res.redirect('/peaksay/conversations');
+    });
+
+};
+
+
+// Author.findById(req.body.authorid).exec(callback)
+// },
+// authors_books: function(callback) {
+//   Book.find({ 'author': req.body.authorid }).exec(callback)
+// },
+// }, function(err, results) {
+// if (err) { return next(err); }
+// // Success
+// if (results.authors_books.length > 0) {
+//     // Author has books. Render in same way as for GET route.
+//     res.render('author_delete', { title: 'Delete Author', author: results.author, author_books: results.authors_books } );
+//     return;
+// }
+// else {
+//     // Author has no books. Delete object and redirect to the list of authors.
+//     Author.findByIdAndRemove(req.body.authorid, function deleteAuthor(err) {
+//         if (err) { return next(err); }
+//         // Success - go to author list
+//         res.redirect('/catalog/authors')
+//     })
+
+
+
+
+
+
 
 
 

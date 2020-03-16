@@ -10,13 +10,18 @@ block content
 
     each convo in conversation_list
       li 
-        p #{convo.title}, #{convo.language}, #{convo.difficulty}
+        a(href=convo.url) #{convo.title}
+        p #{convo.language}, #{convo.difficulty}
   
 
 
 
 
-
+            //- Author.findByIdAndRemove(req.body.authorid, function deleteAuthor(err) {
+            //-     if (err) { return next(err); }
+            //-     // Success - go to author list
+            //-     res.redirect('/catalog/authors')
+            //- })
 
 
 

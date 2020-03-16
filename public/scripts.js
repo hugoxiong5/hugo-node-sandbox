@@ -478,7 +478,7 @@ function resetGame() {
 
 //manually add audio for each line in Conversation 8
 
-let conversation8 = conversationSet[15];
+let conversation8 = conversationSet[0];
 
 for (i=0; i<conversation8.lines.length; i++) {
   let line = new sound(`/audio/speech/id8_line${i}.mp3`);
@@ -490,7 +490,7 @@ for (i=0; i<conversation8.lines.length; i++) {
 
 
 // populate dropdown list of conversations (NOTE: will move into a different "search/filter" function in later version)
-for (i = 1; i < conversationSet.length + 1; i++) {
+for (i = 0; i < conversationSet.length; i++) {
   const convoTitle = document.createElement('p');
   convoTitle.id = 'convo' + i;
   convoTitle.addEventListener('click', changeConvo);
@@ -507,9 +507,9 @@ for (i = 1; i < conversationSet.length + 1; i++) {
 function changeConvo(item) {
   softBtnSound.play();
   const clicked = item.target.id;
-  for (i = 1; i < conversationSet.length + 1; i++) {
+  for (i = 0; i < conversationSet.length; i++) {
     if (clicked == 'convo' + i) {
-      conversation = conversationSet[i]; // I probably shouldn't use "eval" (unsafe?), fix later
+      conversation = conversationSet[i];
     }
   }
   viewConvo();

@@ -6,6 +6,9 @@ var router = express.Router();
 
 var app = express();
 
+// render the "start screen", pull in conversations from database
+router.get('/sandbox', conversation_controller.render_start_screen);
+
 /* send "normal program" for Peaksay root page. */
 router.get('/', function(req, res) {
     res.sendFile(__rootdir + "/public/peaksay.html");
@@ -26,13 +29,11 @@ router.get('/create', conversation_controller.convo_create_get);
 // // POST request for creating a conversation.
 router.post('/create', conversation_controller.convo_create_post);
 
-// Experiment with passing array of conversations from database as local variable to static HTML page
-router.get('/sandbox', conversation_controller.render_start_screen);
+// GET request for one conversation at a unique URL.
+router.get('/conversation/:id', conversation_controller.convo_detail);
 
-// router.get('/sandbox', function(req, res) {
-//   res.render('peaksay_layout');
-// });
-
+// POST request (update/delete?)
+router.post('/conversation/:id', conversation_controller.convo_delete);
 
 module.exports = router;
 

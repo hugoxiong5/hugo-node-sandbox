@@ -39,6 +39,14 @@ var ConversationSchema = new Schema(
   }
 );
 
+// Virtual for unique conversation URL
+ConversationSchema
+.virtual('url')
+.get(function () {
+  return '/peaksay/conversation/' + this._id;
+});
+
+
 // ConversationSchema.set('validateBeforeSave', false);
 
 //Export Conversation model
