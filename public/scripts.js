@@ -75,7 +75,7 @@ GAME SETUP
 // the current conversation variable
 let conversation = {};
 
-let conversationSet = data2;
+let conversationSet = data;
 
 // create array collecting all conversations
 // const conversationSet = conversation_list;
@@ -597,7 +597,7 @@ function viewTranslation(evt) {
 
 // // After clicking on play button on the start screen, go to options/setting screen. Must select a conversation first, otherwise a popup message is shown
 function options() {
-  if (conversation.id == 0 || conversation.id == undefined) {
+  if (conversation._id == undefined) {
     pingSound.play();
     document.getElementById('select-popup').classList.toggle('show');
     return;
