@@ -72,322 +72,13 @@ THIS JAVASCRIPT FILE IS DIVIDED INTO SEVERAL DIFFERENT SECTIONS (i.e. de facto m
 GAME SETUP
 -------------------------------------------------------------------*/
 
-/*-------------------------------------------------------------------
-1. CONVERSATION SETS (hard-coded dataset)
--------------------------------------------------------------------*/
-
-// This is the conversation object that stores the dialogue to be used in the game. In addition to the lines of the conversation, it also stores info about roles (i.e. the two characters, who is speaking which line, etc.);
-// Note that CHARACTER 1 (e.g. Bob) always has EVEN LINES in the array (0, 2, 4, and so on), while CHARACTER 2 has ODD LINES (1, 3, 5, etc)
+// the current conversation variable
 let conversation = {};
 
-// This is the "default" blank conversation object template 
-// (Note: this will be changed to a constructor function in a later version, i.e. when it's possible to dynamically add/edit conversations via a server)
-const conversation0 = {
-  id: 0,
-  title: '',
-  language: '',
-  difficulty: '',
-  characters: {
-    names: [],
-    images: [],
-  },
-  lines: [],
-  translations: [],
-  audio: [],
-};
+let conversationSet = data2;
 
-const conversation1 = {
-  id: 1,
-  title: 'Bob and Alice talk about the weather',
-  language: 'en',
-  difficulty: 'A1',
-  characters: {
-    names: ['Bob', 'Alice'],
-    images: ['https://m.media-amazon.com/images/M/MV5BNjRlYjgwMWMtNDFmMy00OWQ0LWFhMTMtNWE3MTU4ZjQ3MjgyXkEyXkFqcGdeQXVyNzU1NzE3NTg@._V1_CR0,45,480,270_AL_UX477_CR0,0,477,268_AL_.jpg', 'http://images6.fanpop.com/image/photos/33900000/Alice-PNG-alice-in-wonderland-33923432-585-800.png'],
-  },
-  lines: [
-    'Hi, Alice. How are you doing?',
-    'Great, Bob. And you?',
-    "I'm tired. What's the weather today?",
-    "It's going to rain.",
-    'I love rain.',
-    'Not me! I hate rain. Goodbye, Bob!',
-    'Bye, Alice!'
-  ],
-  translations: [],
-  audio: [],
-};
-
-const conversation2 = {
-  id: 2,
-  title: 'Integrated Chinese 3：第一课（开学）',
-  language: 'zh',
-  difficulty: 'B1',
-  characters: {
-    names: ['张天明', '柯林'],
-    images: ['http://my.cheng-tsui.com/files/images/1.3.gif', 'http://my.cheng-tsui.com/files/images/KeLin.gif'],
-  },
-  lines: [
-    '人真多！',
-    '你是新生吧？',
-    '是, 我是新生. 你呢?',
-    '我是研究生. 在这儿帮新生搬东西. 请问， 你叫什么名字？',
-    '我叫张天明。',
-    '张天明？ 是中文名字吗？',
-    '对, 我爸爸妈妈是从中国来的。可是我是在美国出生, 在美国长大的。请问你的名字是... ?',
-    '我正在学中文, 我的中文名字是柯林。你的名字是哪三个字?',
-    '张是弓长张，就是一张纸的张, 天是天气的天， 明是明天的明.',
-    '你是怎么来学校的?',
-    '我先坐飞机, 从机场到学校坐出租汽车， 柯林, 你也住在这儿吗？',
-    '不, 这是新生宿舍， 我住在校外.',
-    '是吗？ 你为什么校住？ 你觉得住在校内好, 还是住在校外好? ',
-    '有的人喜欢住在校外，因为校外的房子比较便宜. 我住在校外, 除了想省点儿钱以外， 还为了自由。',
-    '真的吗？ 那我以后也搬校外去。',
-    '你刚来, 在学校住对你有好处， 可以适应一下学校的生活。要是你以后想搬家, 我可以帮你找房子。',
-    '好吧， 我以后要是搬家， 一定请你帮忙。'
-  ],
-  translations: [],
-  audio: [],
-};
-
-const conversation3 = {
-  id: 3,
-  title: 'Alí looks for a job!',
-  language: 'es',
-  difficulty: 'A2',
-  characters: {
-    names: ['Alí', 'Heidi'],
-    images: ['https://collectionimages.npg.org.uk/std/mw65364/Muhammad-Ali.jpg', 'https://www.stickpng.com/assets/images/5a26b084087102040a95d4a8.png'],
-  },
-  lines: [
-    '¡Buenos días! Vengo a la entrevista de trabajo…',
-    'Si claro, siéntese por favor',
-    'Gracias.',
-    'Bien. ¿Cúal es su nombre?',
-    'Me llamo Alí Mendez.',
-    '¿Dónde vive usted?',
-    'Vivo en la ciudad de San Diego.',
-    '¿A qué se dedica?',
-    'Soy doctor. Trabajo medio tiempo en una clínica.',
-    'Bien, deme una copia de su hoja de vida y la revisaremos. Gracias por venir.',
-    'Gracias a usted.'
-  ],
-  translations: [],
-  audio: [],
-};
-
-const conversation4 = {
-  id: 4,
-  title: 'French: A new teacher',
-  language: 'fr',
-  difficulty: 'A2',
-  characters: {
-    names: ['Mary', 'Peter'],
-    images: ['https://media.swncdn.com/cms/BST/52097-Blessed_Virgin_Mary.800w.tn.jpg', 'https://images.sk-static.com/images/media/profile_images/artists/587963/huge_avatar'],
-  },
-  lines: [
-    "Salut Peter ! As-tu vu notre nouveau professeur d'anglais ?",
-    "Salut Mary, oui, Je l'ai rencontré dans le bureau du principale.",
-    "Il a l'air sympatique, n'est-ce pas ?",
-    "Oui, j'ai l'impresion.",
-    'Tu as appris ta lecon ?',
-    "Non j'avais oublier mon livre. J'espère qu'il ne va pas m'interoger.",
-    "J'espère pour toi."
-  ],
-  translations: [],
-  audio: [],
-};
-
-//manually add audio for each line in Conversation 4
-for (i=0; i<conversation4.lines.length; i++) {
-  let line = new sound(`audio/speech/id4_line${i}.mp3`);
-  line.sound.volume = 1;
-  conversation4.audio.push(line);
-}
-
-const conversation5 = {
-  id: 5,
-  title: 'Wizard of Oz: Dorthy meets Glinda',
-  language: 'en',
-  difficulty: 'C1',
-  characters: {
-    names: ['Dorthy', 'Glinda'],
-    images: ['https://imgix.ranker.com/user_node_img/50077/1001527391/original/dorothy-photo-u1?w=650&q=50&fm=pjpg&fit=crop&crop=faces', 'https://res.cloudinary.com/jerrick/image/upload/fl_progressive,q_auto,w_1024/am49kcbnusbv9ewfe81n.jpg'],
-  },
-  lines: [
-    "Now I -- I know we're not in Kansas.",
-    'Are you a good witch, or a bad witch?',
-    "Who, me?  Why, I'm not a witch at all.  I'm Dorothy Gale from Kansas.",
-    'Oh!  Well... is that the Witch?',
-    "Who, Toto? Toto's my dog.",
-    "Well, I'm a little muddled.  The Munchkins called me because a new witch has just dropped a house on the Wicked Witch of the East. And so what the Munchkins want to know... ...is, are you a good witch, or a bad witch?",
-    "Oh, but I've already told you, I'm not a witch at all -- witches are old and ugly. What was that?",
-    "The Munchkins.  They're laughing because I am a witch. I'm Glinda, the Witch of the North.",
-    "You are!  Oh, I beg your pardon!  But I've never heard of a beautiful.... ...witch before.",
-    'Only bad witches are ugly. The Munchkins are happy because you have freed them from the Wicked Witch of the East.',
-    'Oh.  But, if you please -- what are Munchkins?',
-    "The little people who live in this land -- it's Munchkinland, and you are their national heroine, my dear. It's all right-- you may all come out and thank her."
-  ],
-  translations: [],
-  audio: [],
-};
-
-const conversation6 = {
-  id: 6,
-  title: 'Mr. Sea\'s A&I class',
-  language: 'en',
-  difficulty: 'B2',
-  characters: {
-    names: ['Mr. Sea', 'Mr. Xiong'],
-    images: ['https://www.headroyce.org/uploaded/2019Images/WGL009065-45852.jpg', 'https://www.headroyce.org/uploaded/2019Images/WGL009065-49617.jpg'],
-  },
-  lines: [
-    'Hi, Mr. Xiong!',
-    'Hi, Mr. Sea. Can I audit your class?',
-    'Sure. But you should know... I have some major pet peeves.',
-    'What are your pet peeves?',
-    'First, I always lock the door. If you come late, the door will be locked.',
-    'No problem. I\'ll never be late.',
-    'Second, when you need help, don\'t raise your hand.',
-    'But what do I do if I need help?',
-    'You need to join the queue.',
-    'Okay... wait, why did you kick me from the queue?',
-    'Because the name you wrote was inappropriate.',
-    'I\'m sorry.',
-    'My third pet peeve is, never give presentations with lists with one item.',
-    'I only make lists with one item.',
-    'Mr. Xiong, you have violated all of my pet peeves. You fail this class!',
-    'It\'s okay, I\'m only auditing. I love A&I!'
-  ],
-  translations: [],
-  audio: [],
-};
-
-const conversation7 = {
-  id: 7,
-  title: 'Integrated Chinese 3：第四课：买东西',
-  language: 'zh',
-  difficulty: 'B1',
-  characters: {
-    names: ['丽莎', '张天明'],
-    images: ['http://my.cheng-tsui.com/files/images/Lisha.gif', 'http://my.cheng-tsui.com/files/images/1.3.gif'],
-  },
-  lines: [
-    '你要买什么衣服？',
-    '我想买一套运动服。',
-    '这边儿就是。你看看这一套，样子、大小、长短都合适，而且打八折。',
-    '颜色也不错。多少钱？什么牌子的？',
-    '价钱不贵。这个牌子没听说过。不过，是纯棉的。',
-    '牌子不好不行，我想买名牌的。',
-    '你真时髦！穿名牌！那件好像是名牌的...哎呀，太贵了！',
-    '买东西，我只买名牌的，要不然就不买，因为名牌的衣服质量好。',
-    '你说的有道理。但是也不一定非买名牌不可。',
-    '有的衣服便宜是便宜，可是牌子不好，穿一、两次就不想穿了，只好再买一件。',
-    '我买衣服的标准，第一是穿着舒服不舒服，第二是质量好不好，第三是钱合适不合适。',
-    '丽莎，难道你不在乎衣服的样子？',
-    '是什么牌子的，样子时髦不时髦，我都不在乎。穿衣服是为了自己，不是为了给别人看。',
-    '我不同意。你喜欢看雪梅穿不好看的衣服吗？',
-    '雪梅穿什么衣服都好看，对不对？',
-    '好，好，好，别说了。 哎，你身上这件衣服怎么是名牌的，你不是不穿名牌吗？',
-    '我说不一定非买名牌不可，没说过不穿名牌呀。这件是打折的时候买的。',
-    '好，丽莎，我买完衣服了。',
-    '哎，张天明，我们去日用品那边看看。',
-    '你们去吧，我先去付钱，我们一会儿见。',
-    '等等。准备付现金，还是用信用卡？',
-    '我刷卡。',
-    '你知道，加上税一共是一百八十六块四。',
-    '好...谢谢！再见。'
-  ],
-  translations: [
-    'What clothes do you want to buy?',
-    'I want to buy a set of sportswear.',
-    'Here it is. If you look at this set, style, size, and length are all appropriate, and it\'s 20% off. ',
-    'The colors are also good. How much is it? What brand? ',
-    'Not expensive. Never heard of the brand before. However, it\'s pure cotton. ',
-    'The brand is not good, I want to buy a famous brand. ',
-    'You are so fashionable! Wearing brand names! That one seems to be a famous brand ... Oh, it\'s too expensive! ',
-    'When  buying things, I only buy designer clothes, otherwise I won\'t buy them, because designer clothes are of good quality.',
-    'You make sense. But it is not necessary to buy a famous brand. ',
-    'Some clothes are cheap, but the brand is not good. After wearing them once or twice, I don\'t want to wear them anymore, so I have to buy another one. ',
-    'For my criteria for buying clothes, firstly, they are comfortable, secondly, the quality is good, and thirdly, the price is appropriate. ',
-    'Lisa, don\'t you care what the clothes look like? ',
-    'What brand, what fashionable style... I don\'t care. Dressing is for your own sake, not for showing off to others. ',
-    'I disagree. Do you like to watch Xuemei wear unsightly clothes? ',
-    'Xuemei looks good on everything, right? ',
-    'Okay, okay, okay, stop talking. Hey, this item of clothing you\'re wearing is brand-name, don\'t you not wear brand-names? ',
-    'I said that I don\'t have to buy a brand name, I didn\'t say I don\'t wear them. I bought this at a discount. ',
-    'Okay, Lisa, I\'m finished buying clothes. ',
-    'Hey, Zhang Tianming, let\'s go over to look at the daily necessities. ',
-    'Go ahead, I\'ll pay first, I\'ll see you later. ',
-    'Wait. Are you going to pay in cash or a credit card? ',
-    'I\'ll swipe my card. ',
-    'You know, plus the tax, it\'s 186 yuan in total. ',
-    'Okay... thank you! Goodbye. '
-  ],
-  audio: [],
-};
-
-//manually add audio for each line in Conversation 7
-for (i=0; i<conversation7.lines.length; i++) {
-  let line = new sound(`audio/speech/id7_line${i}.mp3`);
-  line.sound.volume = 1;
-  conversation7.audio.push(line);
-}
-
-const conversation8 = {
-  id: 8,
-  title: 'Integrated Chinese 2：第十九课：旅游：Dialogue 2',
-  language: 'zh',
-  difficulty: 'B1',
-  characters: {
-    names: ['杨丽', '王朋'],
-    images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcThYagI1j0Uplr1jNzfM_SAsCvdOOHyOikHt0qIeUK1S2OaLQc3', 'https://pbs.twimg.com/media/CkrSZh1UgAIlHgF.jpg'],
-  },
-  lines: [
-    '天一旅行社，你好。',
-    '你好。 请问六月初到北京的机票多少钱？',
-    '您要买单程票还是往返票？',
-    '我要买两张往返票。',
-    '你想买哪家航空公司的？',
-    '哪家的便宜，就买哪家的。',
-    '请等等，我查一下……好几家航空公司，都有航班。',
-    '哪些航班？',
-    '中国国际航空公司，一千五，直飞。西北航空公司正在打折，可是要转机。',
-    '西北只比国航便宜四十几块钱，我还是买国航吧。',
-    '哪一天走？哪一天回来？',
-    '六月十号走，七月十五号回来。现在可以订位子吗？',
-    '可以。你们喜欢靠窗户的还是靠走道的？',
-    '靠走道的。对了，我朋友吃素，麻烦帮她订一份素餐。',
-    '没问题……您在北京要订旅馆，租车吗？',
-    '不用，谢谢！'
-  ],
-  translations: [
-    'Tianyi Travel Agency, good morning.',
-    'Good morning. How much is a ticket to Beijing for the beginning of June?',
-    'Do you buy a one-way or a round-trip?',
-    'I want to buy round-trip tickets.',
-    'Which airline company?',
-    'Which airline is the least expensive, that\'s the one I will take.',
-    'Please wait a moment. Let me check. Quite a few airlines, all have flights.',
-    'Which ones?',
-    'Air China, ¥1500, direct flight. Southwest is having a discount, but have to transfer flights',
-    'Southwest is only ¥40 cheaper than Air China, I\'ll fly Air China.',
-    'What day does it leave? What day does it come back?',
-    'Leaves on the 6th, returns on the 7th. Do you want to reserve a seat now?',
-    'Yes. Do you want to sit next to the window or next to the aisle?',
-    'Next to the aisle. Oh, my friend is vegetarian, would you please reserve a vegetarian meal',
-    'No problem... in Beijing do you want to book a hotel, rent a car?',
-    'No, thanks!',
-  ],
-  audio: [],
-};
-
-//manually add audio for each line in Conversation 8
-for (i=0; i<conversation8.lines.length; i++) {
-  let line = new sound(`audio/speech/id8_line${i}.mp3`);
-  line.sound.volume = 1;
-  conversation8.audio.push(line);
-}
+// create array collecting all conversations
+// const conversationSet = conversation_list;
 
 /*-------------------------------------------------------------------
 2. GAME VARIABLES
@@ -395,8 +86,6 @@ for (i=0; i<conversation8.lines.length; i++) {
 
 // Set up global variables that will be used in multiple subsequent functions
 
-// create array collecting all conversations
-const conversationSet = [conversation1, conversation2, conversation3, conversation4, conversation5, conversation6, conversation7, conversation8];
 
 // get major elements/sections of the page
 const startScreen = document.getElementById('startScreen');
@@ -773,7 +462,7 @@ for (i = 1; i < conversationSet.length + 1; i++) {
   convoTitle.addEventListener('click', changeConvo);
   const dropdownContent = document.getElementById('convo-dropdown-content');
   dropdownContent.appendChild(convoTitle);
-  convoTitle.innerHTML = eval('conversation' + i + '.title'); // I probably shouldn't use "eval" (unsafe?), fix later
+  convoTitle.innerHTML = conversationSet[i].title; // I probably shouldn't use "eval" (unsafe?), fix later
 }
 
 /*-------------------------------------------------------------------
@@ -786,7 +475,7 @@ function changeConvo(item) {
   const clicked = item.target.id;
   for (i = 1; i < conversationSet.length + 1; i++) {
     if (clicked == 'convo' + i) {
-      conversation = eval('conversation' + i); // I probably shouldn't use "eval" (unsafe?), fix later
+      conversation = conversationSet[i]; // I probably shouldn't use "eval" (unsafe?), fix later
     }
   }
   viewConvo();

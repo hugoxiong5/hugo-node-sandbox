@@ -11,8 +11,8 @@ var ConversationSchema = new Schema(
     character2: [{type: String, required: true}],
     line1: {type: String, required: true},
     line2: {type: String, required: true},
-    line3: {type: String, required: true},
-    line4: {type: String, required: true},
+    line3: {type: String},
+    line4: {type: String},
   }
 );
 

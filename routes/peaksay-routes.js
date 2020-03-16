@@ -6,23 +6,32 @@ var router = express.Router();
 
 var app = express();
 
-/* REDIRECT to Peaksay. */
+/* send "normal program" for Peaksay root page. */
 router.get('/', function(req, res) {
-    res.sendFile( __rootdir + "/public/" + "peaksay.html");
+    res.sendFile(__rootdir + "/public/peaksay.html");
 });
 
-// redirect to "various" Peaksay pages
+// sendPeaksay learn-mode only program at this address
 router.get('/learn', function(req, res) {
-    res.sendFile( __rootdir + "/public/" + "peaksay-learn.html");
-  });
+    res.sendFile(__rootdir + "/public/peaksay-learn.html");
+});
 
-// Peaksay: create conversation form
+// Conversation List page -- call controller function
+router.get('/conversations', conversation_controller.conversation_list);
 
-// GET request for creating a Book. NOTE This must come before routes that display Book (uses id).
+// Peaksay "create conversation" form:
+// GET request for creating a conversation.
 router.get('/create', conversation_controller.convo_create_get);
 
-// // POST request for creating Book.
+// // POST request for creating a conversation.
 router.post('/create', conversation_controller.convo_create_post);
+
+// Experiment with passing array of conversations from database as local variable to static HTML page
+router.get('/sandbox', conversation_controller.render_start_screen);
+
+// router.get('/sandbox', function(req, res) {
+//   res.render('peaksay_layout');
+// });
 
 
 module.exports = router;

@@ -1,0 +1,56 @@
+extends layout
+
+block content
+  h1= title
+
+  h3 Hello!
+
+  h1= conversation_list
+
+  link(rel='stylesheet', href='/styles.css')
+  script(src='/scripts.js')
+  
+  ul
+
+    each convo in conversation_list
+      li 
+        p #{convo.title}, #{convo.language}, #{convo.difficulty}
+  
+
+
+
+
+
+
+
+
+
+        //- a(href='/item') #{convo.title}
+    
+    //- else
+      li There are no conversations.
+
+    //- each convo in conversations
+    //-   li 
+    //-     convo.title
+    
+    //-     convo.title, 
+    //-     convo.language,
+    //-     convo.difficulty, 
+
+    //- else
+    //-   li There are no books.
+
+
+//- block content
+//-   h1= title
+  
+//-   ul
+//-     - convo_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+//-     each book in book_list
+//-       li 
+//-         a(href=book.url) #{book.title} 
+//-         |  (#{book.author.name})
+
+//-     else
+//-       li There are no books.

@@ -1,0 +1,195 @@
+doctype html
+head
+  // Title and meta info
+  meta(charset='utf-8')
+  title Peaksay
+  meta(name='description' content='The conversation game for learning languages')
+  meta(name='author' content='Hugo Xiong')
+  // favicon file
+  link(rel='icon' href='favicon.ico' type='image/x-icon')
+  // link to import the Varela Round font from Google Fonts
+  link(href='https://fonts.googleapis.com/css?family=Varela+Round&display=swap' rel='stylesheet')
+  // link to main CSS stylesheet
+  link(rel='stylesheet' type='text/css' href='/styles.css')
+// elements for "start Screen", with instructions for the game and a start button
+#startScreen
+  #startHeader.flex-default
+    h1.title peaksay: PUG TEMPLATE ENGINE: DYNAMIC PAGE
+
+    
+    
+    //- #{conversation_list}
+
+    // p. conversation_list
+    // #{conversation_list}"
+
+    //
+      <h1 class="peaksay-logo-link">
+      <a ref="https://peaksay.com">
+      <img width="170.549" height="59.990" src="https://fluentkey.com/blog/wp-content/uploads/cropped-logo-variant-nosloga-square-300x106.png">
+      </a>
+    h3.tagline the conversation game!
+    // <button class="btn hover" id="text-to-speech" onClick="textToSpeech()">Click for TEXT TO SPEECH</button>
+  // elements for start Button
+  #start-menu-button-container
+    .popup
+      button#startButton.btn.hover(onclick='options()') Start Game
+      span#select-popup.popuptext Please select a conversation!
+    button#instructionsButton.btn.hover(onclick='instructions()') How to Play
+  // elements for conversation button and dropdown
+  #conversationWindow
+    #convo-dropdown.dropdown
+      button.btn.dropbtn Choose Conversation
+      #convo-dropdown-content.dropdown-content
+    #convoGrid
+// Instructions Modal Window
+// modal means a pop-up window that appears during certain conditions (i.e. when you click on a button), not usually visible
+#instructionsModal.modal
+  .modal-content
+    span.close &times;
+    h2 How to Play:
+    br
+    h4
+      | Take turns acting out a conversation with another player! Who&apos;s the fastest of them all? The fun new way to practice a new language :)
+    br
+    ol(style='text-align:left')
+      li Choose your conversation.
+      li Press start!
+      li Answer with the correct next line.
+      li
+        | You&apos;re in a tug of war for &quot;conversation energy.&quot; Gain energy by answering quickly and accurately. Lose energy for wrong or slow answers.
+      li
+        | Once the conversation is finished, it starts over again. Each new round is faster than the last!
+      li Pay attention to your energy bar: Whoever gets all the energy wins!
+// elements for "play/option Screen", with different settings before the game starts
+#optionsScreen
+  button.back-btn(onclick='init()') &lsaquo;
+  #optionsHeader.flex-default
+    h1.title peaksay
+    h3.tagline the conversation game!
+  h2#options-convo-title
+  // elements for Learn Mode and Game Mode sections
+  #learn-mode-button-container.flex-default
+    button#learn-mode-btn.btn(onclick='newLearnMode()') Learn Mode
+  #learn-mode-explainer.options-explainer
+    ul
+      li
+        | Practice the conversation at your own pace, without the pressure of timers or scores.
+      li Rewind, fast forward, or restart the conversation whenever you want.
+      li Audio and translation support to help you fully master each line.
+  #game-mode-button-container.flex-default
+    button#game-mode-btn.btn(onclick='newGame()') Game Mode
+  #difficulty-select-container
+    #difficulty-dropdown.dropdown
+      button#difficulty-btn.btn.dropbtn Choose Difficulty
+      #difficulty-dropdown-content.dropdown-content
+        p#easy-difficulty(onclick='chooseDifficulty(this)') Easy
+        p#normal-difficulty(onclick='chooseDifficulty(this)') Normal
+        p#hard-difficulty(onclick='chooseDifficulty(this)') Hard
+    #difficulty-selected
+      h3#difficulty-selected-text NORMAL
+  #game-mode-explainer.options-explainer
+    ul
+      li Are you ready to play? Learn and have fun at the same time!
+      li Choose the right difficulty setting to challenge yourself.
+      li(style='text-decoration:line-through;') Save your high score on the world leaderboard. Bragging rights included.
+// Round Start Modal Window
+#roundModal.modal
+  .modal-content
+    span.close &times;
+    img#rmImage(src='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png')
+    p#rmRole You are BOB!
+    p#rmTurn You speak FIRST!
+// Learn Mode Start Modal Window
+#learnModeModal.modal
+  .modal-content
+    h3#lm-modal-header Choose Your Role:
+    #lm-choose-1.lm-modal-roles(onclick='chooseRole(this)')
+      img#lmImage1(src='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png')
+      p#lmRole1 Bob
+      p#lmTurn1 speaks first
+    #lm-choose-2.lm-modal-roles(onclick='chooseRole(this)')
+      img#lmImage2(src='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png')
+      p#lmRole2 Alice
+      p#lmTurn2 speaks second
+//
+  Game: Elements to set up the actual Game layout and interface
+  There 4 highest/main level elements, going from top to bottom:
+  1) menu (Logo, buttons for settings, pause, game restart, etc)
+  2) scoreboard (player scores and pictures, energy bar, round info)
+  3) dialogueWindow (the window where each line of dialogue appears)
+  4) controls (clickable answer choices)
+#gameContainer
+  #menuWindow
+    #roundCounter
+    #dialogueTitle
+    #menuWindow-buttons
+      button#pauseButton.btn.menu-btn.hover(onclick='pause()') Pause
+      button#newGameButton.btn.menu-btn.hover(onclick='restart()') New Game
+  #scoreboardWindow
+    #player-window-1.playerWindow
+      #role1.role Player 1:
+      img#playerImage1.playerImage(src='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png')
+      #score1Counter.scoreCounter Score:
+    #energyContainer
+      #energyWindow
+        #player1Bar
+        #player2Bar
+      #energyCounter1.energyCounter Energy:
+      #energyCounter2.energyCounter Energy:
+    #player-window-2.playerWindow
+      #role2.role Player 2:
+      img#playerImage2.playerImage(src='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png')
+      #score2Counter.scoreCounter Score:
+  #learnControlsWindow
+    #learnPrevious.btn.hover.learn-menu(onclick='previousLine()') Previous Player 1 Line
+    #learnNext.btn.hover.learn-menu(onclick='nextLine()') Next Player 1 Line
+    #learnRestart.btn.hover.learn-menu(onclick='learnModeStart()') Restart Conversation
+  #dialogueWindow
+    #currentLine1.dialogueBox.dBox1
+    #currentLine2.dialogueBox.dBox2
+  #controlsWindow
+    #timerBar
+    #announcementContainer
+      #announcementBox
+    #answerButtonContainer
+      button#choice1.btn.answerBtn.hover(onclick='answered(this)') Answer 1
+      button#choice2.btn.answerBtn.hover(onclick='answered(this)') Answer 2
+      button#choice3.btn.answerBtn.hover(onclick='answered(this)') Answer 3
+      button#choice4.btn.answerBtn.hover(onclick='answered(this)') Answer 4
+// Game Over Modal Window
+#gameOverModal.modal
+  .modal-content
+    span.close &times;
+    p#endMessage Congratulations, you win!
+    p#endBonus BONUS POINTS:
+    p#endScore Your High Score: points!
+    #endStats STATISTICS:
+    p#lineStats
+    p#timeStats
+
+
+//- #conversationSet
+//-   !{conversation_list}
+
+// link to outside JS script
+
+
+  //- h1= conversation_list
+
+script.
+  var data = !{JSON.stringify(conversation_list).replace(/<\//g, '<\\/')};
+  var data2 = JSON.parse('!{JSON.stringify(conversation_list)}');
+
+
+//-   console.log('hi');
+//-   console.log('the var hello is equal to: ');
+//-   //- var bye = !{conversation_list};
+//-     // var hello = conversation_list
+
+script(src='/scripts.js')
+
+
+
+// Passing variables into Pug script file:
+// https://stackoverflow.com/questions/8698534/how-to-pass-variable-from-jade-template-file-to-a-script-file
